@@ -20,16 +20,16 @@ type NavbarProps = {
 
 export function Navbar({ active, accent, onChange, lite, onToggleLite, webgl }: NavbarProps) {
   return (
-    <header className="fixed inset-x-0 top-0 z-30 px-3 pt-3 sm:px-6">
-      <nav aria-label="Dashboards" className="glass mx-auto flex max-w-7xl items-center gap-2 rounded-2xl px-2 py-2 sm:gap-3 sm:px-3">
+    <header className="fixed inset-x-0 top-0 z-30 h-14 border-b border-amber-500/15 bg-[#050505]/90 px-2 backdrop-blur-md sm:px-4">
+      <nav aria-label="Dashboards" className="mx-auto flex h-full max-w-7xl items-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={() => onChange('overview')}
-          className="flex shrink-0 items-center gap-2 rounded-xl px-1.5 py-1 focus-visible:outline-2 focus-visible:outline-sky-400"
+          className="flex shrink-0 items-center gap-2 rounded-xl px-1 focus-visible:outline-2 focus-visible:outline-amber-300"
           aria-label="Gayathri Kalluri — go to overview"
         >
           <span
-            className="grid h-9 w-9 place-items-center rounded-lg border font-mono text-sm font-semibold text-white transition-colors duration-700"
+            className="grid h-8 w-8 place-items-center rounded-lg border font-mono text-sm font-semibold text-white transition-colors duration-700"
             style={{ borderColor: `${accent}80`, boxShadow: `0 0 18px ${accent}55, inset 0 0 12px ${accent}30` }}
           >
             GK
@@ -42,7 +42,7 @@ export function Navbar({ active, accent, onChange, lite, onToggleLite, webgl }: 
           </span>
         </button>
 
-        <div role="tablist" aria-label="Portfolio sections" className="scrollbar-none flex flex-1 items-center justify-center gap-1 overflow-x-auto">
+        <div role="tablist" aria-label="Portfolio sections" className="scrollbar-none flex h-full flex-1 items-center justify-center gap-0.5 overflow-x-auto sm:gap-1">
           {sections.map((s) => {
             const Icon = ICONS[s.id]
             const isActive = s.id === active
@@ -55,7 +55,7 @@ export function Navbar({ active, accent, onChange, lite, onToggleLite, webgl }: 
                 aria-selected={isActive}
                 aria-controls="hud-panel"
                 onClick={() => onChange(s.id)}
-                className={`relative flex shrink-0 items-center gap-2 rounded-xl px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-sky-400 ${
+                className={`relative flex h-10 shrink-0 items-center gap-1.5 rounded-xl px-2 text-xs transition-colors focus-visible:outline-2 focus-visible:outline-amber-300 sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
@@ -83,7 +83,7 @@ export function Navbar({ active, accent, onChange, lite, onToggleLite, webgl }: 
           onClick={onToggleLite}
           disabled={!webgl}
           title={webgl ? 'Toggle 2D Lite Mode for low-power devices' : '3D unavailable on this device'}
-          className="flex shrink-0 items-center gap-2 rounded-xl border border-[#D4AF37]/25 px-2.5 py-2 text-xs text-slate-300 transition-colors hover:border-[#D4AF37]/60 focus-visible:outline-2 focus-visible:outline-amber-300 disabled:opacity-60"
+          className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-[#D4AF37]/25 px-2 text-[10px] text-slate-300 transition-colors hover:border-[#D4AF37]/60 focus-visible:outline-2 focus-visible:outline-amber-300 disabled:opacity-60 sm:gap-2 sm:px-2.5 sm:text-xs"
         >
           {lite ? <Monitor className="h-4 w-4 text-[#F59E0B]" aria-hidden="true" /> : <Zap className="h-4 w-4 text-[#F5D061]" aria-hidden="true" />}
           <span className="hidden font-mono sm:inline">2D Lite</span>

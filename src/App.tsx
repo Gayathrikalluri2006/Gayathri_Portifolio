@@ -38,6 +38,10 @@ export default function App() {
     mainRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 
+  const onOverviewProgress = useCallback((progress: number) => {
+    scrollRef.current = progress
+  }, [])
+
   const onScroll = useCallback(() => {
     const el = mainRef.current
     if (!el) return
@@ -66,17 +70,23 @@ export default function App() {
 
       <Navbar active={section} accent={theme.primary} onChange={navigate} lite={lite} onToggleLite={toggle} webgl={webgl} />
 
-      <main ref={mainRef} onScroll={onScroll} className="hud-scroll fixed inset-0 z-10 overflow-y-auto px-3 pb-28 pt-24 sm:px-6 sm:pt-28">
-        <div id="hud-panel" role="tabpanel" aria-labelledby={`tab-${section}`} className="mx-auto max-w-7xl">
+      <main ref={mainRef} onScroll={onScroll} className="hud-scroll fixed inset-x-0 bottom-12 top-14 z-10 overflow-y-auto">
+        <div
+          id="hud-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${section}`}
+          className={section === 'overview' ? 'h-full' : 'mx-auto w-full max-w-7xl px-3 pb-16 pt-5 sm:px-6'}
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={section}
+              className={section === 'overview' ? 'h-full' : ''}
               initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -16, filter: 'blur(10px)' }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              {section === 'overview' && <OverviewDashboard onNavigate={navigate} />}
+              {section === 'overview' && <OverviewDashboard onProgress={onOverviewProgress} />}
               {section === 'devops' && <DevOpsDashboard />}
               {section === 'projects' && <ProjectsDashboard activeIndex={projectIndex} onSelect={setProjectIndex} />}
               {section === 'stack' && <StackDashboard />}
